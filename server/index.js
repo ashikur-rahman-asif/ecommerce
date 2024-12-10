@@ -1,20 +1,25 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors"); 
 require("dotenv").config();
 
 const app = express();
+
+// Middleware
+app.use(cors()); 
 app.use(express.json());
 
-// database connection with mongoose
+// Database Connection with Mongoose
 const dbURL = process.env.DB_URI;
 
 mongoose
   .connect(dbURL)
   .then(() => {
-    console.log("momgoose connect successfully");
+    console.log("Mongoose connected successfully");
   })
   .catch((error) => console.error("MongoDB connection error:", error));
 
+// Basic Route
 app.get("/", (req, res) => {
   res.send("Hello server");
 });
