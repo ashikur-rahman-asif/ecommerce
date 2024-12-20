@@ -3,10 +3,11 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router";
 import App from "./App.jsx";
 import "./index.css";
+import store from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <Provider>
+    <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>

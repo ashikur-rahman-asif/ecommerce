@@ -1,11 +1,20 @@
-import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router";
+import AuthLayout from "./components/auth/layout";
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl text-red-500">This is the ecom site</h1>
-      <Button>Asif</Button>
-    </>
+    <div className="flex flex-col overflow-hidden bg-white">
+      {/* common components  */}
+      <h1>Header components</h1>
+      <Routes>
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 
