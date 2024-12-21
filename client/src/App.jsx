@@ -1,5 +1,10 @@
 import { Route, Routes } from "react-router";
+import AdminLayaout from "./components/admin-view/layout";
 import AuthLayout from "./components/auth/layout";
+import AdminDashboard from "./pages/admin-view/dashboard";
+import AdminFeatures from "./pages/admin-view/features";
+import AdminOrders from "./pages/admin-view/orders";
+import AdminProducts from "./pages/admin-view/products";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 
@@ -12,6 +17,12 @@ function App() {
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayaout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />{" "}
+          <Route path="products" element={<AdminProducts />} />{" "}
+          <Route path="orders" element={<AdminOrders />} />{" "}
+          <Route path="features" element={<AdminFeatures />} />
         </Route>
       </Routes>
     </div>
