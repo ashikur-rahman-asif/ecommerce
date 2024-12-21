@@ -7,12 +7,14 @@ import AdminOrders from "./pages/admin-view/orders";
 import AdminProducts from "./pages/admin-view/products";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
+import NotFound from "./pages/not-found";
+import ShoppingLayout from "./pages/shopping-view/layout";
 
 function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* common components  */}
-      <h1>Header components</h1>
+
       <Routes>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
@@ -24,6 +26,8 @@ function App() {
           <Route path="orders" element={<AdminOrders />} />{" "}
           <Route path="features" element={<AdminFeatures />} />
         </Route>
+        <Route path="/shop" element={<ShoppingLayout />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </div>
   );
