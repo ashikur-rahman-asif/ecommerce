@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import AdminLayaout from "./components/admin-view/layout";
 import AuthLayout from "./components/auth/layout";
+// import CheckAuth from "./components/common/check-auth";
 import CheckAuth from "./components/common/check-auth";
 import ShoppingLayout from "./components/shopping-view/layout";
 import AdminDashboard from "./pages/admin-view/dashboard";
@@ -17,11 +19,8 @@ import ShoppingListing from "./pages/shopping-view/product-listing";
 import AccessDenied from "./pages/unauth-page";
 
 function App() {
-  const isAuthenticated = true;
-  const user = {
-    name: "Asif",
-    role: "user",
-  };
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       {/* common components  */}
@@ -62,7 +61,7 @@ function App() {
           <Route path="account" element={<ShoppingAccount />} />
         </Route>
         <Route path="*" element={<NotFound />}></Route>
-        <Route path="/unauth-page" element={<AccessDenied />}/>
+        <Route path="/unauth-page" element={<AccessDenied />} />
       </Routes>
     </div>
   );

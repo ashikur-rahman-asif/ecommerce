@@ -22,8 +22,26 @@ const Register = () => {
   // Access loading state and error from Redux store
   const { isLoading, isError, error } = useSelector((state) => state.auth);
 
+  // Password validation function
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).+$/;
+    return passwordRegex.test(password);
+  };
+
   function onSubmit(event) {
     event.preventDefault();
+
+    // Check if the password is valid
+    if (!validatePassword(formData.password)) {
+      toast({
+        title: "Invalid password",
+        description:
+          "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 special character.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     dispatch(registerUser(formData)).then((data) => {
       if (data?.payload?.success) {
         toast({
@@ -55,13 +73,13 @@ const Register = () => {
         </p>
       </div>
       <CommonForm
-          formControls={registerFormControls}
-          buttonText={isLoading ? "Signing Up..." : "Sign Up"} 
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={onSubmit}
-          isButtonDisabled={isLoading} 
-        />
+        formControls={registerFormControls}
+        buttonText={isLoading ? "Signing Up..." : "Sign Up"}
+        formData={formData}
+        setFormData={setFormData}
+        onSubmit={onSubmit}
+        isButtonDisabled={isLoading}
+      />
     </div>
   );
 };
