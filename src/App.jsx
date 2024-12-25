@@ -1,8 +1,10 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router";
 import AdminLayaout from "./components/admin-view/layout";
 import AuthLayout from "./components/auth/layout";
 // import CheckAuth from "./components/common/check-auth";
+import { useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 import CheckAuth from "./components/common/check-auth";
 import ShoppingLayout from "./components/shopping-view/layout";
 import AdminDashboard from "./pages/admin-view/dashboard";
@@ -17,9 +19,33 @@ import ShoppingCheckout from "./pages/shopping-view/checkout";
 import ShoppingHome from "./pages/shopping-view/home";
 import ShoppingListing from "./pages/shopping-view/product-listing";
 import AccessDenied from "./pages/unauth-page";
+import { checkAuth } from "./store/auth-slice";
 
 function App() {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: "white",
+        }}>
+        <ClipLoader size={60} color="#4A90E2" />
+      </div>
+    );
+
+  console.log(isLoading, user);
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">

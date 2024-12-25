@@ -1,4 +1,3 @@
-
 const AccessDenied = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -8,13 +7,6 @@ const AccessDenied = () => {
           You do not have access to this page. Please contact your administrator
           or log in with the correct credentials.
         </p>
-        <div className="mt-6">
-          <button
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
-            onClick={() => (window.location.href = "/auth/login")}>
-            Go to Login
-          </button>
-        </div>
       </div>
     </div>
   );
