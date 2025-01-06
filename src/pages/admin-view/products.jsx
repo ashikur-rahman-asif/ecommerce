@@ -25,8 +25,9 @@ const AdminProducts = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
   const [formData, setFormData] = useState(initialFormData);
-  const [image, setImageUpload] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+  const [imageLoadingState, setImageLoadingState] = useState(false);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -50,10 +51,12 @@ const AdminProducts = () => {
             <SheetTitle>Add New Product</SheetTitle>
           </SheetHeader>
           <ProductImageUpload
-            file={image}
-            setFile={setImageUpload}
+            imageFile={imageFile}
+            setImageFile={setImageFile}
             uploadedImageUrl={uploadedImageUrl}
             setUploadedImageUrl={setUploadedImageUrl}
+            setImageLoadingState={setImageLoadingState}
+            imageLoadingState={imageLoadingState}
           />
           <div className="py-6">
             <CommonForm

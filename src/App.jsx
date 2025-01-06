@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/admin-view/dashboard";
 import AdminFeatures from "./pages/admin-view/features";
 import AdminOrders from "./pages/admin-view/orders";
 import AdminProducts from "./pages/admin-view/products";
+import AdminUsers from "./pages/admin-view/users";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import NotFound from "./pages/not-found";
@@ -72,6 +73,7 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />{" "}
           <Route path="products" element={<AdminProducts />} />{" "}
           <Route path="orders" element={<AdminOrders />} />{" "}
+          <Route path="users" element={<AdminUsers />} />{" "}
           <Route path="features" element={<AdminFeatures />} />
         </Route>
         <Route
