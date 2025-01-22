@@ -27,6 +27,7 @@ export const addNewProduct = createAsyncThunk(
   }
 );
 
+// get all products
 export const fetchAllProducts = createAsyncThunk(
   "/product/fetchAllProducts",
   async (_, { rejectWithValue }) => {
@@ -40,6 +41,46 @@ export const fetchAllProducts = createAsyncThunk(
       return rejectWithValue(
         error.response?.data || "Failed to fetch products"
       );
+    }
+  }
+);
+
+// edit a product
+export const editProduct = createAsyncThunk(
+  "/product/editProduct",
+  async (formData, id, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        ` http://localhost:3000/api/admin/products/edit/${id}`,
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      return response.data; // Return response data to the reducer
+    } catch (error) {
+      // Handle errors and return the error message
+      return rejectWithValue(error.response?.data || "Failed to add product");
+    }
+  }
+);
+
+// delete a product
+export const deleteProduct = createAsyncThunk(
+  "/product/deleteProduct",
+  async (formData, id, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(
+        ` http://localhost:3000/api/admin/products/delete/${id}`,
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      return response.data; // Return response data to the reducer
+    } catch (error) {
+      // Handle errors and return the error message
+      return rejectWithValue(error.response?.data || "Failed to add product");
     }
   }
 );
