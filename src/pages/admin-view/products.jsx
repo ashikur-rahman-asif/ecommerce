@@ -10,7 +10,10 @@ import { addProductFormElements } from "@/config";
 import { addNewProduct, fetchAllProducts } from "@/store/admin/product-slice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { useToast } from "@/hooks/use-toast";
 import ProductImageUpload from "./image-upload";
+import AdminProductTile from "./product-tile";
 
 const initialFormData = {
   image: null,
@@ -30,30 +33,37 @@ const AdminProducts = () => {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
-  const {productList}= useSelector(state=>state.adminProducts)
-
+  const { productList } = useSelector((state) => state.adminProducts);
+  const { toast } = useToast();
   const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
     // console.log(event);
-    dispatch(addNewProduct({
-      ...formData,
-      image:uploadedImageUrl
-    }))
-    .then((data)=>{
-      console.log(data)
-      // if(data?.payload)
-    })
+    dispatch(
+      addNewProduct({
+        ...formData,
+        image: uploadedImageUrl,
+      })
+    ).then((data) => {
+      console.log(data);
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+        setOpenCreateProductsDialog(false);
+        setImageFile(null);
+        setFormData(initialFormData);
+        toast({
+          title: "Product add successfully",
+        });
+      }
+    });
   };
-
 
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
-  
-  console.log(productList,"productList")
+  console.log(productList, "productList");
   return (
     <>
       <div className="mb-5 flex justify-end w-full">
@@ -61,7 +71,13 @@ const AdminProducts = () => {
           Add new product
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {productList && productList.length > 0
+          ? productList.map((productItem) => (
+              <AdminProductTile product={productItem} />
+            ))
+          : null}
+      </div>
       <Sheet
         open={openCreateProductsDialog}
         onOpenChange={() => {
