@@ -36,11 +36,15 @@ const AdminProducts = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
+    // console.log(event);
     dispatch(addNewProduct({
       ...formData,
       image:uploadedImageUrl
     }))
+    .then((data)=>{
+      console.log(data)
+      // if(data?.payload)
+    })
   };
 
 
@@ -49,7 +53,7 @@ const AdminProducts = () => {
   }, [dispatch]);
 
   
-  console.log(productList,uploadedImageUrl,"productList")
+  console.log(productList,"productList")
   return (
     <>
       <div className="mb-5 flex justify-end w-full">

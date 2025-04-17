@@ -6,76 +6,64 @@ const initialState = {
   productList: [],
 };
 
-// Add a new product
 export const addNewProduct = createAsyncThunk(
-  "/product/addnewproduct",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/admin/products/add",
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to add product");
-    }
+  "/products/addnewproduct",
+  async (formData) => {
+    const result = await axios.post(
+      "http://localhost:3000/api/admin/products/add",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return result?.data;
   }
 );
 
-// Get all products
 export const fetchAllProducts = createAsyncThunk(
-  "/product/fetchAllProducts",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/admin/products/all-products"
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to fetch products"
-      );
-    }
+  "/products/fetchAllProducts",
+  async () => {
+    const result = await axios.get(
+      "http://localhost:3000/api/admin/products/get"
+    );
+
+    return result?.data;
   }
 );
 
-// Edit a product
 export const editProduct = createAsyncThunk(
-  "/product/editProduct",
-  async ({ formData, id }, { rejectWithValue }) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:3000/api/admin/products/edit/${id}`,
-        formData
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Failed to edit product");
-    }
+  "/products/editProduct",
+  async ({ id, formData }) => {
+    const result = await axios.put(
+      `http://localhost:3000/api/admin/products/edit/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return result?.data;
   }
 );
 
-// Delete a product
 export const deleteProduct = createAsyncThunk(
-  "/product/deleteProduct",
-  async ({ id }, { rejectWithValue }) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/admin/products/delete/${id}`
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to delete product"
-      );
-    }
+  "/products/deleteProduct",
+  async (id) => {
+    const result = await axios.delete(
+      `http://localhost:3000/api/admin/products/delete/${id}`
+    );
+
+    return result?.data;
   }
 );
-const AdminProductSlice = createSlice({
-  name: "adminProductSlice",
+
+const AdminProductsSlice = createSlice({
+  name: "adminProducts",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -84,14 +72,14 @@ const AdminProductSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        console.log(action.payload);
-        (state.isLoading = false), (state.productList = action.payload.data);
+        state.isLoading = false;
+        state.productList = action.payload.data;
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
-        console.log(action.payload);
-        (state.isLoading = false), (state.productList = []);
+        state.isLoading = false;
+        state.productList = [];
       });
   },
 });
 
-export default AdminProductSlice.reducer;
+export default AdminProductsSlice.reducer;
