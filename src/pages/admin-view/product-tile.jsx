@@ -1,7 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
-const AdminProductTile = ({ product }) => {
+const AdminProductTile = ({
+  product,
+  setFormData,
+  setOpenCreateProductsDialog,
+  setCurrectEditedId,
+  isEditMode
+}) => {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div>
@@ -27,7 +33,14 @@ const AdminProductTile = ({ product }) => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between items-center">
-          <Button>Edit</Button>
+          <Button
+            onClick={() => {
+              setOpenCreateProductsDialog(true);
+              setCurrectEditedId(product?._id);
+              setFormData(product);
+            }}>
+            Edit
+          </Button>
           <Button>Delete</Button>
         </CardFooter>
       </div>

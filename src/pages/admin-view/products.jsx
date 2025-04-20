@@ -33,6 +33,7 @@ const AdminProducts = () => {
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
+  const [currectEditedId, setCurrectEditedId] = useState(null);
   const { productList } = useSelector((state) => state.adminProducts);
   const { toast } = useToast();
   const dispatch = useDispatch();
@@ -74,7 +75,12 @@ const AdminProducts = () => {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {productList && productList.length > 0
           ? productList.map((productItem) => (
-              <AdminProductTile product={productItem} />
+              <AdminProductTile
+                setFormData={setFormData}
+                setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+                setCurrectEditedId={setCurrectEditedId}
+                product={productItem}
+              />
             ))
           : null}
       </div>
@@ -82,10 +88,14 @@ const AdminProducts = () => {
         open={openCreateProductsDialog}
         onOpenChange={() => {
           setOpenCreateProductsDialog(false);
+          setCurrectEditedId(null);
+          setFormData(initialFormData);
         }}>
         <SheetContent side="right" className="overflow-auto">
           <SheetHeader>
-            <SheetTitle>Add New Product</SheetTitle>
+            <SheetTitle>
+              {currectEditedId !== null ? "Edit Product" : "Add New Product"}
+            </SheetTitle>
           </SheetHeader>
           <ProductImageUpload
             imageFile={imageFile}
@@ -94,14 +104,15 @@ const AdminProducts = () => {
             setUploadedImageUrl={setUploadedImageUrl}
             setImageLoadingState={setImageLoadingState}
             imageLoadingState={imageLoadingState}
+            isEditMode={currectEditedId !== null}
           />
           <div className="py-6">
             <CommonForm
               onSubmit={onSubmit}
               formData={formData}
               setFormData={setFormData}
+              buttonText={currectEditedId !== null ? "Edit" : "Add"}
               formControls={addProductFormElements}
-              buttonText="Add"
             />
           </div>
         </SheetContent>
