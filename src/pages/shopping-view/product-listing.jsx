@@ -1,7 +1,9 @@
+import ProductFilter from "@/components/admin-view/filter";
+
 const ShoppingListing = () => {
   return (
-    <div>
-      <h1>Shopping view Listing</h1>
+    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
+      <ProductFilter />
     </div>
   );
 };
