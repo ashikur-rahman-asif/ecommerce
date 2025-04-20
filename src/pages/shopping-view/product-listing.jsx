@@ -1,4 +1,4 @@
-import ProductFilter from "@/components/admin-view/filter";
+import ProductFilter from "@/components/shopping-view/filter";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
 import { ArrowUpDown } from "lucide-react";
+import ShoppingProductTile from "./product-tile";
 
 const ShoppingListing = () => {
   return (
@@ -31,15 +32,18 @@ const ShoppingListing = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-[200px]">
                 <DropdownMenuRadioGroup>
-                 {
-                  sortOptions.map(item=><DropdownMenuRadioItem key={item.id}>
-                    {item.label}
-                  </DropdownMenuRadioItem>)
-                 }
+                  {sortOptions.map((item) => (
+                    <DropdownMenuRadioItem key={item.id}>
+                      {item.label}
+                    </DropdownMenuRadioItem>
+                  ))}
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+          <ShoppingProductTile />
         </div>
       </div>
     </div>

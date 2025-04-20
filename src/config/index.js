@@ -8,8 +8,8 @@ export const registerFormControls = [
   },
   {
     name: "email",
-    label: "Email Address",
-    placeholder: "Enter your email address",
+    label: "Email",
+    placeholder: "Enter your email",
     componentType: "input",
     type: "email",
   },
@@ -21,11 +21,12 @@ export const registerFormControls = [
     type: "password",
   },
 ];
+
 export const loginFormControls = [
   {
     name: "email",
-    label: "Email Address",
-    placeholder: "Enter your email address",
+    label: "Email",
+    placeholder: "Enter your email",
     componentType: "input",
     type: "email",
   },
@@ -142,6 +143,23 @@ export const shoppingViewHeaderMenuItems = [
     path: "/shop/search",
   },
 ];
+
+export const categoryOptionsMap = {
+  men: "Men",
+  women: "Women",
+  kids: "Kids",
+  accessories: "Accessories",
+  footwear: "Footwear",
+};
+
+export const brandOptionsMap = {
+  nike: "Nike",
+  adidas: "Adidas",
+  puma: "Puma",
+  levi: "Levi",
+  zara: "Zara",
+  "h&m": "H&M",
+};
 
 export const filterOptions = {
   category: [
