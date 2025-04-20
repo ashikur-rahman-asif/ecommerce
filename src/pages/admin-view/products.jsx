@@ -9,6 +9,7 @@ import {
 import { addProductFormElements } from "@/config";
 import {
   addNewProduct,
+  deleteProduct,
   editProduct,
   fetchAllProducts,
 } from "@/store/admin/product-slice";
@@ -86,6 +87,14 @@ const AdminProducts = () => {
       .every((item) => item);
   }
 
+  function handleDelete(getCurrentProductId) {
+    dispatch(deleteProduct(getCurrentProductId)).then((data) => {
+      if (data?.payload?.success) {
+        dispatch(fetchAllProducts());
+      }
+    });
+  }
+
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
@@ -106,6 +115,7 @@ const AdminProducts = () => {
                 setOpenCreateProductsDialog={setOpenCreateProductsDialog}
                 setCurrectEditedId={setCurrectEditedId}
                 product={productItem}
+                handleDelete={handleDelete}
               />
             ))
           : null}
