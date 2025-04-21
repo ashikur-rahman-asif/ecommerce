@@ -8,10 +8,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
+import { fetchAllProducts } from "@/store/admin/product-slice";
 import { ArrowUpDown } from "lucide-react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import ShoppingProductTile from "./product-tile";
 
 const ShoppingListing = () => {
+  const dispatch=useDispatch()
+
+  // fetch list of products 
+  useEffect(()=>{
+    dispatch(fetchAllProducts())
+  },[])
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
       <ProductFilter />
