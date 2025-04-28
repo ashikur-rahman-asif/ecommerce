@@ -76,6 +76,10 @@ const ShoppingListing = () => {
     }
   }, [filters]);
 
+  const handleGetProductDetails = (getCurrentProductId) => {
+    console.log(getCurrentProductId);
+  };
+
   useEffect(() => {
     if (filters !== null && sort !== null)
       dispatch(
@@ -116,7 +120,11 @@ const ShoppingListing = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
           {productList && productList.length > 0
             ? productList.map((productItem, i) => (
-                <ShoppingProductTile key={i} product={productItem} />
+                <ShoppingProductTile
+                  key={i}
+                  product={productItem}
+                  handleGetProductDetails={handleGetProductDetails}
+                />
               ))
             : null}
         </div>
