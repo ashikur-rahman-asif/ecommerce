@@ -1,4 +1,8 @@
+import { StarIcon } from "lucide-react";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "../ui/dialog";
+import { Separator } from "../ui/separator";
 
 export default function ProductDetailsDialog({
   open,
@@ -23,6 +27,48 @@ export default function ProductDetailsDialog({
             <p className="text-muted-foreground text-2xl mb-5 mt-4">
               {productDetails?.description}
             </p>
+          </div>
+          <div className="flex items-center justify-between">
+            <p
+              className={`text-3xl font-bold text-primary ${
+                productDetails?.salePrice > 0 ? "line-through" : ""
+              }`}>
+              ${productDetails?.price}
+            </p>
+            {productDetails?.salePrice > 0 ? (
+              <p className="text-2xl font-bold text-muted-foreground">
+                ${productDetails?.salePrice}
+              </p>
+            ) : null}
+          </div>
+          <div className="my-5">
+            <Button>Add to Cart</Button>
+          </div>
+          <Separator />
+          <div className="max-h-[300px] overflow-auto">
+            <h2 className="text-xl font-bold mb-4">Reviews</h2>
+            <div className="grid gap-6">
+              <div className="flex gap-4">
+                <Avatar className="size-10">
+                  <AvatarFallback>SM</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold">Asif</h3>
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    <StarIcon className="size-5 fill-primary" />
+                    <StarIcon className="size-5 fill-primary" />
+                    <StarIcon className="size-5 fill-primary" />
+                    <StarIcon className="size-5 fill-primary" />
+                    <StarIcon className="size-5 fill-primary" />
+                  </div>
+                  <p className="text-muted-foreground">
+                    Lorem ipsum dolor sit amet.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>
