@@ -2,6 +2,7 @@ import { StarIcon } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "../ui/dialog";
+import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 
 export default function ProductDetailsDialog({
@@ -41,6 +42,18 @@ export default function ProductDetailsDialog({
               </p>
             ) : null}
           </div>
+
+          <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-0.5">
+              <StarIcon className="size-5 fill-primary" />
+              <StarIcon className="size-5 fill-primary" />
+              <StarIcon className="size-5 fill-primary" />
+              <StarIcon className="size-5 fill-primary" />
+              <StarIcon className="size-5 fill-primary" />
+            </div>
+            <span className="text-muted-foreground">4.5</span>
+          </div>
+
           <div className="my-5">
             <Button>Add to Cart</Button>
           </div>
@@ -68,6 +81,9 @@ export default function ProductDetailsDialog({
                   </p>
                 </div>
               </div>
+            </div>
+            <div className="mt-6 flex gap-2">
+              <Input placeholder="Write a review" />
             </div>
           </div>
         </div>
